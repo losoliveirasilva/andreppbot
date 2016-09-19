@@ -1,3 +1,4 @@
+import os, logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from random import choice
 
@@ -9,9 +10,18 @@ words = (
 	'cacete',
 )
 
+logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+TOKEN = os.environ.get('TOKEN')
+APPNAME = os.environ.get('APPNAME')
+PORT = int(os.environ.get('PORT', '5000'))
+updater = Updater(TOKEN)
+updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
+updater.bot.setWebhook("https://"+APPNAME+".herokuapp.com/"+TOKEN)
+
 def echo(bot, update):
-	# if update.message.from_user.username == "andremesquita96":
-	if update.message.from_user.username == "losoliveirasilva":
+	# if update.message.from_user.username == "losoliveirasilva":
+	if update.message.from_user.username == "andremesquita96":
 		bot.sendMessage(update.message.chat_id,
 			text='{}, {}'.format(
 				update.message.text, choice(words)))
