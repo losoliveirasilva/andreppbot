@@ -26,14 +26,16 @@ def echo(bot, update):
 			text='{}, {}'.format(
 				update.message.text, choice(words)))
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-	updater = Updater("240204199:AAE1437Swm7onr3g4tjEYqxP90WplSVBWng")
+	# updater = Updater("240204199:AAE1437Swm7onr3g4tjEYqxP90WplSVBWng")
 
-	dp = updater.dispatcher
+	# dp = updater.dispatcher
 
-	dp.add_handler(MessageHandler([Filters.text], echo))
+	# dp.add_handler(MessageHandler([Filters.text], echo))
 
-	updater.start_polling()
+updater.dispatcher.add_handler(MessageHandler([Filters.text], echo))
 
-	updater.idle()
+	# updater.start_polling()
+
+updater.idle()
