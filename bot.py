@@ -1,6 +1,5 @@
 import os
 import logging
-import re
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from random import choice
 
