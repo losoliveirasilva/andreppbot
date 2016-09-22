@@ -8,6 +8,11 @@ words = (
 	'filha da puta',
 	'merda',
 	'cacete',
+	'arrombado',
+	'trouxa',
+	'filho de chocadeira',
+	'otário',
+	'babaca',
 )
 
 logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -20,7 +25,6 @@ updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 updater.bot.setWebhook("https://"+APPNAME+".herokuapp.com/"+TOKEN)
 
 def echo(bot, update):
-	# if update.message.from_user.username == "losoliveirasilva":
 	if update.message.from_user.username == "andremesquita96":
 		bot.sendMessage(update.message.chat_id,
 			text='{}, {}'.format(
