@@ -27,7 +27,8 @@ updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 updater.bot.setWebhook("https://"+APPNAME+".herokuapp.com/"+TOKEN)
 
 def echo(bot, update):
-    if update.message.from_user.username == "andremesquita96":
+    # if update.message.from_user.username == "andremesquita96":
+    if update.message.from_user.username == "Lucasbordignon":
         user_message = update.message.text
         if (re.search(r'[?]', user_message).group() == '?'):
             bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
