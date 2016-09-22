@@ -33,7 +33,7 @@ def echo(bot, update):
         if (re.search(r'[?]', user_message).group() == '?'):
             bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                             'Responde', choice(words)))
-       else: 
+        else: 
             bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                             update.message.text, choice(words)))
 
