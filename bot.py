@@ -33,8 +33,8 @@ def echo(bot, update):
         if (re.search(r'[?]', user_message).group() == '?'):
             bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                             'Responde', choice(words)))
-        else:
-            bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
+            return
+        bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                             user_message, choice(words)))
 
 updater.dispatcher.add_handler(MessageHandler([Filters.text], echo))
