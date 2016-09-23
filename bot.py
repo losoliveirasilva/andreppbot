@@ -4,19 +4,6 @@ from datetime import datetime
 from telegram.ext import Updater, MessageHandler, Filters
 from random import choice
 
-words = (
-    'porra',
-    'caralho',
-    'filha da puta',
-    'merda',
-    'cacete',
-    'arrombado',
-    'trouxa',
-    'filho de chocadeira',
-    'otário',
-    'babaca',
-)
-
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 TOKEN = os.environ.get('TOKEN')
@@ -30,18 +17,30 @@ updater.bot.setWebhook("https://" + APPNAME + ".herokuapp.com/" + TOKEN)
 with open('bot_phrases.txt', 'r') as file:
     automatic_phrases = file.read().strip().split('\n')
 
+# Loads external messages, from bot_swearwords.txt, to bot.
+with open('bot_swearwords.txt', 'r') as file:
+    automatic_swearwords = file.read().strip().split('\n')
+
 
 def echo(bot, update):
     last_message_hour = 0
+    max_ = 3
     if update.message.from_user.username == "andremesquita96":
         last_message_hour = datetime.now().hour
         user_message = update.message.text
-        if '?' in user_message:
-            bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
-                            'Responde', choice(words)))
+
+        if random.randint(1,max_) == 3:
+            if '?' in user_message:
+                bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
+                                'Responde', choice(automatic_swearwords)))
+            else:
+                bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
+                                user_message, choice(automatic_swearwords)))
+
+        if max_ < 6:
+            max_ = max_ + 1
         else:
-            bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
-                            user_message, choice(words)))
+            max_ = 3
 
     elif (last_message_hour + 8) % 24 == datetime.now().hour:
         last_message_hour = datetime.now().hour
