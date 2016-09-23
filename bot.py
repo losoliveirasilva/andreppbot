@@ -42,6 +42,7 @@ def echo(bot, update):
         else:
             bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                             user_message, choice(words)))
+
     elif (last_message_hour + 8) % 24 == datetime.now().hour:
         last_message_hour = datetime.now().hour
         bot.sendMessage(update.message.chat_id, text=choice(automatic_phrases))
