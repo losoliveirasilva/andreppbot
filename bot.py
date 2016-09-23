@@ -25,7 +25,7 @@ with open('bot_swearwords.txt', 'r') as file:
 def echo(bot, update):
     last_message_hour = 0
     max_ = 3
-    if update.message.from_user.username == "andremesquita96":
+    if update.message.from_user.username == "losoliveirasilva":
         last_message_hour = datetime.now().hour
         user_message = update.message.text
 
