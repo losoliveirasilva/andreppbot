@@ -2,7 +2,7 @@ import os
 import logging
 from datetime import datetime
 from telegram.ext import Updater, MessageHandler, Filters
-from random import choice
+from random import choice, randint
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -29,7 +29,7 @@ def echo(bot, update):
         last_message_hour = datetime.now().hour
         user_message = update.message.text
 
-        if random.randint(1,max_) == 3:
+        if randint(1,max_) == 3:
             if '?' in user_message:
                 bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                                 'Responde', choice(automatic_swearwords)))
