@@ -1,7 +1,6 @@
 import os
 import logging
-from datetime import datetime
-from telegram.ext import Updater, MessageHandler, Filters
+from telegram.ext import Updater, MessageHandler, Filters, Job
 from random import choice, randint
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -10,6 +9,7 @@ TOKEN = os.environ.get('TOKEN')
 APPNAME = os.environ.get('APPNAME')
 PORT = int(os.environ.get('PORT', '5000'))
 updater = Updater(TOKEN)
+jobQueue = updater.job_queue
 updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 updater.bot.setWebhook("https://" + APPNAME + ".herokuapp.com/" + TOKEN)
 
@@ -23,13 +23,12 @@ with open('bot_swearwords.txt', 'r') as file:
 
 
 def echo(bot, update):
-    last_message_hour = 0
     max_ = 3
     if update.message.from_user.username == "andremesquita96":
-        last_message_hour = datetime.now().hour
+        automatic_message(bot, update, 28889.0)
         user_message = update.message.text
 
-        if randint(1,max_) == 3:
+        if randint(1, max_) == 3:
             if '?' in user_message:
                 bot.sendMessage(update.message.chat_id, text='{}, {}'.format(
                                 'Responde', choice(automatic_swearwords)))
@@ -42,9 +41,12 @@ def echo(bot, update):
         else:
             max_ = 3
 
-    elif (last_message_hour + 8) % 24 == datetime.now().hour:
-        last_message_hour = datetime.now().hour
-        bot.sendMessage(update.message.chat_id, text=choice(automatic_phrases))
+
+def automatic_message(bot, update, delay):
+    delayed_message = Job(bot.sendMessage(update.message.chat_id, text=choice(automatic_phrases)),
+                          0.0, repeat=False)
+    delayed_message.schedule_removal()
+    jobQueue.put(delayed_message, next_t=delay)
 
 updater.dispatcher.add_handler(MessageHandler([Filters.text], echo))
 updater.idle()
