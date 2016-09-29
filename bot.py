@@ -24,8 +24,8 @@ with open('bot_swearwords.txt', 'r') as file:
 
 def echo(bot, update):
     max_ = 3
-    if update.message.from_user.username == "andremesquita96":
-        automatic_message(bot, update, 28889.0)
+    if update.message.from_user.username == "Lucasbordignon":
+        automatic_message(bot, update, 10.0)
         user_message = update.message.text
 
         if randint(1, max_) == 3:
