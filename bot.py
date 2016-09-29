@@ -39,12 +39,13 @@ def echo(bot, update):
             max_ = max_ + 1
         else:
             max_ = 3
+        automatic_message(bot, update, 10.0)
 
 
 def automatic_message(bot, update, delay):
     delayed_message = Job(bot.sendMessage(update.message.chat_id, text=choice(automatic_phrases)),
                           delay, repeat=False)
-    jobQueue.put(delayed_message)
+    jobQueue.put(delayed_message, next_t=delay)
 
 updater.dispatcher.add_handler(MessageHandler([Filters.text], echo))
 updater.idle()
