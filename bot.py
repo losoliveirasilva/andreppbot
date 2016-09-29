@@ -39,7 +39,6 @@ def echo(bot, update):
             max_ = max_ + 1
         else:
             max_ = 3
-        automatic_message(bot, update, 10.0)
 
 
 def automatic_message(bot, update, delay):
