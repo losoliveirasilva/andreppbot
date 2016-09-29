@@ -25,7 +25,6 @@ with open('bot_swearwords.txt', 'r') as file:
 def echo(bot, update):
     max_ = 3
     if update.message.from_user.username == "Lucasbordignon":
-        automatic_message(bot, update, 10.0)
         user_message = update.message.text
 
         if randint(1, max_) == 3:
@@ -40,13 +39,13 @@ def echo(bot, update):
             max_ = max_ + 1
         else:
             max_ = 3
+        automatic_message(bot, update, 10.0)
 
 
 def automatic_message(bot, update, delay):
     delayed_message = Job(bot.sendMessage(update.message.chat_id, text=choice(automatic_phrases)),
-                          0.0, repeat=False)
-    delayed_message.schedule_removal()
-    jobQueue.put(delayed_message, next_t=delay)
+                          delay, repeat=False)
+    jobQueue.put(delayed_message)
 
 updater.dispatcher.add_handler(MessageHandler([Filters.text], echo))
 updater.idle()
