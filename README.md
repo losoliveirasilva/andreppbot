@@ -1,5 +1,5 @@
 # André++
-Telegram Bot
+[Telegram Bot](http://telegram.me/andreppbot)
 
 "Dizem que C++ é C com classe. André++ é André *sem* classe."
 
